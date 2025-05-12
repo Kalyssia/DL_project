@@ -1,1 +1,3 @@
-CLASSES = ["cat", "dog", "car", "tree", "bicycle", "airplane", "clock", "apple", "face", "house"]
+from torchvision import datasets
+
+CLASSES = datasets.ImageFolder("data").classes
