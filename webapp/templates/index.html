@@ -29,7 +29,7 @@
 </head>
 <body>
   <h1>Dessine ton doodle</h1>
-  <canvas id="canvas" width="280" height="280"></canvas>
+  <canvas id="canvas" width="560" height="560"></canvas>
   <div>
     <button onclick="clearCanvas()">Effacer</button>
     <button onclick="send()">Prédire</button>
@@ -42,15 +42,21 @@
     let drawing = false;
 
     canvas.addEventListener("mousedown", () => drawing = true);
-    canvas.addEventListener("mouseup", () => drawing = false);
-    canvas.addEventListener("mouseout", () => drawing = false);
+    canvas.addEventListener("mouseup", () => {
+		drawing = false
+		send()
+	});
+    canvas.addEventListener("mouseout", () => {
+		drawing = false
+		send()
+	});
     canvas.addEventListener("mousemove", draw);
 
     function draw(e) {
       if (!drawing) return;
       ctx.fillStyle = "black";
       ctx.beginPath();
-      ctx.arc(e.offsetX, e.offsetY, 10, 0, Math.PI * 2);
+      ctx.arc(e.offsetX, e.offsetY, 5, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -58,6 +64,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+	  document.getElementById("result").innerText = "";
     }
 
     function send() {
