@@ -1,0 +1,1 @@
+CLASSES = ["cat", "dog", "car", "tree", "bicycle", "airplane", "clock", "apple", "face", "house"]

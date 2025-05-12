@@ -2,8 +2,8 @@ import os
 import urllib.request
 import numpy as np
 from PIL import Image
+from config import CLASSES
 
-CLASSES = ["cat", "dog", "car", "tree", "bicycle", "airplane", "clock", "apple", "face", "house"]
 URL_BASE = "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/"
 OUT_DIR = "data"
 MAX_IMAGES = 1000
