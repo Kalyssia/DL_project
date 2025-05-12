@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doodle Classifier</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+    }
+    canvas {
+      border: 1px solid black;
+      background-color: white;
+      margin-bottom: 10px;
+      touch-action: none;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 12px;
+      font-size: 16px;
+    }
+    #result {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dessine ton doodle</h1>
+  <canvas id="canvas" width="280" height="280"></canvas>
+  <div>
+    <button onclick="clearCanvas()">Effacer</button>
+    <button onclick="send()">Prédire</button>
+  </div>
+  <p id="result"></p>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", () => drawing = true);
+    canvas.addEventListener("mouseup", () => drawing = false);
+    canvas.addEventListener("mouseout", () => drawing = false);
+    canvas.addEventListener("mousemove", draw);
+
+    function draw(e) {
+      if (!drawing) return;
+      ctx.fillStyle = "black";
+      ctx.beginPath();
+      ctx.arc(e.offsetX, e.offsetY, 10, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function send() {
+      const image = canvas.toDataURL("image/png");
+      fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("result").innerText = "Prédiction : " + data.prediction;
+      });
+    }
+
+    clearCanvas();
+  </script>
+</body>
+</html>
