@@ -4,6 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 from model import SimpleCNN
+from config import CLASSES
 import os
 
 BATCH_SIZE = 64
@@ -25,7 +26,7 @@ train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size,
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
 
-model = SimpleCNN(num_classes=10).to(DEVICE)
+model = SimpleCNN(num_classes=len(CLASSES)).to(DEVICE)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=LR)
 

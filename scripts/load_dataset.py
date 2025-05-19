@@ -3,7 +3,11 @@ import urllib.request
 import numpy as np
 from PIL import Image
 
-CLASSES = ["cat", "dog", "car", "tree", "bicycle", "airplane", "clock", "apple", "face", "house"]
+with open("all_classes.txt", "r") as f:
+    CLASSES = [line.strip() for line in f]
+
+MAX_CLASSES = 345  # total of 345 classes
+CLASSES = CLASSES[:MAX_CLASSES]
 URL_BASE = "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/"
 OUT_DIR = "data"
 MAX_IMAGES = 1000
