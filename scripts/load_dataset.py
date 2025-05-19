@@ -10,6 +10,7 @@ MAX_IMAGES = 1000
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
+# For each class, download the corresponding images, reshape it, and save in data/<class_name>/
 for cls in CLASSES:
     url = URL_BASE + cls.replace(" ", "%20") + ".npy"
     npy_path = os.path.join(OUT_DIR, cls + ".npy")
