@@ -15,7 +15,7 @@ transform = transforms.Compose([
 ])
 
 model = SimpleCNN(num_classes=len(CLASSES))
-model.load_state_dict(torch.load("models/simple_cnn.pt", map_location=DEVICE))
+model.load_state_dict(torch.load("models/simple_cnn_all_classes.pt", map_location=DEVICE))
 model.to(DEVICE)
 model.eval()
 

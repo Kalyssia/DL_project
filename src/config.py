@@ -1,3 +1,7 @@
-from torchvision import datasets
+import os
 
-CLASSES = datasets.ImageFolder("data").classes
+with open("all_classes.txt", "r") as f:
+    CLASSES = [line.strip() for line in f]
+
+MAX_CLASSES = 345
+CLASSES = CLASSES[:MAX_CLASSES]

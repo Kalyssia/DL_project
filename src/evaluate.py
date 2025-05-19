@@ -1,22 +1,33 @@
 import torch
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
+from torch.utils.data import DataLoader, TensorDataset, random_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
+import numpy as np
+import os
 from model import SimpleCNN
 from config import CLASSES
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+DATA_DIR = "data_npy"
 
-transform = transforms.Compose([
-    transforms.Grayscale(),
-    transforms.Resize((28, 28)),
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
+def load_dataset():
+    data = []
+    labels = []
+    for idx, cls in enumerate(CLASSES):
+        class_path = os.path.join(DATA_DIR, f"{cls}.npy")
+        if os.path.exists(class_path):
+            samples = np.load(class_path)
+            data.append(samples)
+            labels.append(np.full(len(samples), idx))
+    x = np.concatenate(data, axis=0)
+    y = np.concatenate(labels, axis=0)
+    x = x[:, None, :, :] / 255.0
+    return torch.tensor(x, dtype=torch.float32), torch.tensor(y, dtype=torch.long)
 
-dataset = datasets.ImageFolder("data", transform=transform)
-_, val_dataset = torch.utils.data.random_split(dataset, [int(0.8 * len(dataset)), len(dataset) - int(0.8 * len(dataset))])
+print("Loading validation dataset...")
+x, y = load_dataset()
+dataset = TensorDataset(x, y)
+_, val_dataset = random_split(dataset, [int(0.8 * len(dataset)), len(dataset) - int(0.8 * len(dataset))])
 val_loader = DataLoader(val_dataset, batch_size=64)
 
 model = SimpleCNN(num_classes=len(CLASSES))

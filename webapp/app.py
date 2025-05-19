@@ -3,9 +3,16 @@ import torch
 from PIL import Image, ImageChops, ImageOps
 import base64
 import io
-from src.model import SimpleCNN
+
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from src.model import BiggerCNN
 from src.config import CLASSES
 from torchvision import transforms
+
+
 
 app = Flask(__name__)
 
@@ -16,8 +23,8 @@ transform = transforms.Compose([
 	transforms.Normalize((0.5,), (0.5,))
 ])
 
-model = SimpleCNN(num_classes=len(CLASSES))
-model.load_state_dict(torch.load("models/simple_cnn.pt", map_location="cpu"))
+model = BiggerCNN(num_classes=len(CLASSES))
+model.load_state_dict(torch.load("models/simple_cnn_all_classes.pt", map_location="cpu"))
 model.eval()
 
 @app.route("/")
