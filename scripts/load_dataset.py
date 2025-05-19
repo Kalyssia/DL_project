@@ -6,7 +6,7 @@ from PIL import Image
 CLASSES = ["cat", "dog", "car", "tree", "bicycle", "airplane", "clock", "apple", "face", "house"]
 URL_BASE = "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/"
 OUT_DIR = "data"
-MAX_IMAGES = 1000
+MAX_IMAGES = 10000
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
