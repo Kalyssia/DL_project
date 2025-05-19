@@ -15,7 +15,9 @@ MAX_IMAGES = 1000
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # For each class, download the corresponding images, reshape it, and save in data/<class_name>/
-for cls in CLASSES:
+for idx, cls in enumerate(CLASSES, 1):
+    print(f"[{idx}/{len(CLASSES)}] Downloading '{cls}'...")
+    
     url = URL_BASE + cls.replace(" ", "%20") + ".npy"
     npy_path = os.path.join(OUT_DIR, cls + ".npy")
     urllib.request.urlretrieve(url, npy_path)
