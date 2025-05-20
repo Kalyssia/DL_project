@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset, random_split
-from model import BiggerCNN
+from model import *
 from config import CLASSES
 import numpy as np
 import os
@@ -46,7 +46,7 @@ def main():
 	print(f"{len(CLASSES)} classes detected.")
 	print("Initializing model...")
 
-	model = BiggerCNN(num_classes=len(CLASSES)).to(DEVICE)
+	model = SimpleCNN(num_classes=len(CLASSES)).to(DEVICE)
 	criterion = nn.CrossEntropyLoss()
 	optimizer = optim.Adam(model.parameters(), lr=LR)
 
@@ -73,7 +73,7 @@ def main():
 		print(f"Epoch {epoch+1} | Loss: {running_loss:.4f} | Acc: {acc:.2f}%")
 
 	os.makedirs("models", exist_ok=True)
-	torch.save(model.state_dict(), "models/simple_cnn_all_classes.pt")
+	torch.save(model.state_dict(), "models/mlp.pt")
 
 if __name__ == "__main__":
 	main()

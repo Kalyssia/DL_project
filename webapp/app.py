@@ -8,7 +8,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src.model import BiggerCNN
+from src.model import MLP
 from src.config import CLASSES
 from torchvision import transforms
 
@@ -23,8 +23,8 @@ transform = transforms.Compose([
 	transforms.Normalize((0.5,), (0.5,))
 ])
 
-model = BiggerCNN(num_classes=len(CLASSES))
-model.load_state_dict(torch.load("models/simple_cnn_all_classes.pt", map_location="cpu"))
+model = MLP(num_classes=len(CLASSES))
+model.load_state_dict(torch.load("models/mlp.pt", map_location="cpu"))
 model.eval()
 
 @app.route("/")
