@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import torch
 from PIL import Image
-from src.model import SimpleCNN
+from src.model import BiggerCNN
 from src.config import CLASSES
 from torchvision import transforms
 
@@ -14,8 +14,6 @@ from scipy.interpolate import interp1d
 app = Flask(__name__)
 
 transform = transforms.Compose([
-    #transforms.Grayscale(),
-    #transforms.Resize((28, 28)),
     transforms.ToTensor(),
     transforms.Normalize((0.5,), (0.5,))
 ])
