@@ -14,8 +14,8 @@ transform = transforms.Compose([
 	transforms.Normalize((0.5,), (0.5,))
 ])
 
-model = SimpleCNN(num_classes=10)
-model.load_state_dict(torch.load("models/simple_cnn.pt", map_location=DEVICE))
+model = SimpleCNN(num_classes=len(CLASSES))
+model.load_state_dict(torch.load("models/simple_cnn_all_classes.pt", map_location=DEVICE))
 model.to(DEVICE)
 model.eval()
 

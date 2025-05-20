@@ -20,8 +20,8 @@ transform = transforms.Compose([
     transforms.Normalize((0.5,), (0.5,))
 ])
 
-model = SimpleCNN(num_classes=len(CLASSES))
-model.load_state_dict(torch.load("models/simple_cnn.pt", map_location="cpu"))
+model = BiggerCNN(num_classes=len(CLASSES))
+model.load_state_dict(torch.load("models/simple_cnn_all_classes.pt", map_location="cpu"))
 model.eval()
 
 # Original function used to convert vector images to raster images, from google's documentation
