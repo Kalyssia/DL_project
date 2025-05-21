@@ -155,9 +155,8 @@ def predict():
 	raster_np = raster_np.reshape(28, 28)
 	pil_img = Image.fromarray(raster_np).convert("L")
 
-	os.makedirs("tmp", exist_ok=True)
-
-	pil_img.save("./tmp/image.png")
+	#os.makedirs("tmp", exist_ok=True)
+	#pil_img.save("./tmp/image.png")
 
 	tensor = transform(pil_img).unsqueeze(0)
 
