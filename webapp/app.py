@@ -20,7 +20,7 @@ transform = transforms.Compose([
 ])
 
 model = QuickDrawCNN(num_classes=len(CLASSES))
-model.load_state_dict(torch.load("models/model_big_10000.pt", map_location="cpu"))
+model.load_state_dict(torch.load("models/model_quickdraw_10000.pt", map_location="cpu"))
 model.eval()
 
 # Original function used to convert vector images to raster images, from google's documentation
