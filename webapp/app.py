@@ -19,7 +19,7 @@ transform = transforms.Compose([
 ])
 
 model = BiggerCNN(num_classes=len(CLASSES))
-model.load_state_dict(torch.load("models/simple_cnn_all_classes.pt", map_location="cpu"))
+model.load_state_dict(torch.load("models/model_big_5000.pt", map_location="cpu"))
 model.eval()
 
 # Original function used to convert vector images to raster images, from google's documentation
@@ -154,7 +154,7 @@ def predict():
     raster_np = raster_np.reshape(28, 28)
     pil_img = Image.fromarray(raster_np).convert("L")
     
-    #pil_img.save("./tmp/image.png")
+    pil_img.save("./tmp/image.png")
 
     tensor = transform(pil_img).unsqueeze(0)
 
