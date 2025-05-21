@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import torch
 from PIL import Image
-from src.model import BiggerCNN
+from src.model import QuickDrawCNN
 from src.config import CLASSES
 from torchvision import transforms
 
@@ -19,7 +19,7 @@ transform = transforms.Compose([
 	transforms.Normalize((0.5,), (0.5,))
 ])
 
-model = BiggerCNN(num_classes=len(CLASSES))
+model = QuickDrawCNN(num_classes=len(CLASSES))
 model.load_state_dict(torch.load("models/model_big_10000.pt", map_location="cpu"))
 model.eval()
 
