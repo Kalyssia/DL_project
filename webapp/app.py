@@ -163,8 +163,12 @@ def predict():
 
 	with torch.no_grad():
 		output = model(tensor)
-		_, pred = torch.max(output, 1)
-	return jsonify({"prediction": CLASSES[pred.item()]})
+		probs = torch.softmax(output, dim=1)[0]
+		top5 = torch.topk(probs, 5)
+
+		results = [{"label": CLASSES[idx], "prob": float(prob)} for idx, prob in zip(top5.indices, top5.values)]
+
+	return jsonify({"top5": results})
 
 
 if __name__ == "__main__":
