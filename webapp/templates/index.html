@@ -117,7 +117,7 @@
 				.then(res => res.json())
 				.then(data => {
 					const resultDiv = document.getElementById("result");
-					resultDiv.innerHTML = "<strong>Top 5 Pr\u00e9dictions :</strong><ul>" +
+					resultDiv.innerHTML = "<strong>Top 5 Predictions :</strong><ul>" +
 						data.top5.map(item => {
 							const label = item.label.charAt(0).toUpperCase() + item.label.slice(1);
 							const size = 16 + item.prob * 16;
