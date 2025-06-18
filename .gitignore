@@ -1,4 +1,8 @@
 __pycache__/
 venv/
 data/
-models/
+data_npy/
+data_tensors/
+data_tensors_5000/
+data_tensors_10000/
+tmp/

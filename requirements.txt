@@ -1,0 +1,9 @@
+datasets
+matplotlib
+scikit-learn
+Pillow
+flask
+cairocffi
+rdp
+numpy
+scipy
